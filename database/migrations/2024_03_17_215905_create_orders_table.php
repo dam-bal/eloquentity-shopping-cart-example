@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id');
+            $table->string('status')->default('pending');
+            $table->foreignIdFor(\App\Models\Customer::class);
+            $table->dateTime('placed_date');
             $table->timestamps();
         });
     }

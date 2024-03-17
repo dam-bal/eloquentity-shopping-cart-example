@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('checkout_carts', function (Blueprint $table) {
             $table->uuid('id');
+            $table->foreignIdFor(\App\Models\Customer::class);
+            $table->string('address_city');
+            $table->string('address_street_name');
+            $table->string('address_street_number');
+            $table->string('payment_type');
             $table->timestamps();
         });
     }
