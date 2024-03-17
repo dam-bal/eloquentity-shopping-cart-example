@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('checkout_carts', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
             $table->timestamps();
         });
     }
