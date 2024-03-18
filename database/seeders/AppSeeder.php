@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\User;
@@ -47,5 +48,11 @@ class AppSeeder extends Seeder
         $customer->userId = $user->id;
 
         $customer->save();
+
+        $cart = new Cart();
+
+        $cart->customerId = $customer->id;
+
+        $cart->save();
     }
 }
