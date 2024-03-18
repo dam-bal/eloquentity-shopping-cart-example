@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_lines', function (Blueprint $table) {
             $table->uuid('id');
-            $table->foreignIdFor(\App\Models\Order::class);
-            $table->integer('line_number');
+            $table->foreignIdFor(\App\Models\Order::class, 'order_id');
             $table->string('sku');
             $table->string('name');
             $table->double('unit_price');

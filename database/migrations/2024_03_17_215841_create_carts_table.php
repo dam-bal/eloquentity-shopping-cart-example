@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->uuid('id');
+            $table->string('shipment_city')->nullable();
+            $table->string('shipment_street_name')->nullable();
+            $table->string('shipment_street_number')->nullable();
+            $table->string('shipment_receiver_full_name')->nullable();
             $table->timestamps();
         });
     }

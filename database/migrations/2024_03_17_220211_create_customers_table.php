@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\User::class, 'user_id');
             $table->timestamps();
         });
     }
