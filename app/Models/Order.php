@@ -17,7 +17,7 @@ class Order extends Model
         'placed_date' => 'datetime'
     ];
 
-    public function orderLines(): HasMany
+    public function lines(): HasMany
     {
         return $this->hasMany(OrderLine::class, 'order_id', 'id');
     }

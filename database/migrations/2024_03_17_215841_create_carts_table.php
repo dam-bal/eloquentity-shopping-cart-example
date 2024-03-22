@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('shipment_street_name')->nullable();
             $table->string('shipment_street_number')->nullable();
             $table->string('shipment_receiver_full_name')->nullable();
+            $table->enum('payment_method', ['cash', 'card'])->nullable();
             $table->foreignIdFor(\App\Models\Customer::class, 'customer_id');
             $table->timestamps();
         });
