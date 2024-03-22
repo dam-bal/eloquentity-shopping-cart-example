@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('shipment_city')->nullable();
-            $table->string('shipment_street_name')->nullable();
-            $table->string('shipment_street_number')->nullable();
-            $table->string('shipment_receiver_full_name')->nullable();
+            $table->string('shipment_city');
+            $table->string('shipment_street_name');
+            $table->string('shipment_street_number');
+            $table->string('shipment_receiver_full_name');
             $table->enum('status', ['placed', 'completed', 'canceled'])->nullable();
             $table->enum('payment_method', ['cash', 'card'])->nullable();
             $table->foreignIdFor(\App\Models\Customer::class, 'customer_id');

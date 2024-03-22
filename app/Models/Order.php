@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Shipment;
 use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,8 @@ class Order extends Model
 
     protected $casts = [
         'status' => OrderStatus::class,
-        'placed_date' => 'datetime'
+        'placed_date' => 'datetime',
+        'shipment' => Shipment::class,
     ];
 
     public function lines(): HasMany

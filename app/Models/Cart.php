@@ -16,27 +16,11 @@ class Cart extends Model
 
     protected $casts = [
         'payment_method' => PaymentMethod::class,
+        'shipment'       => Shipment::class,
     ];
 
     public function items(): HasMany
     {
         return $this->hasMany(CartItem::class, 'cart_id', 'id');
-    }
-
-    protected function shipment(): Attribute
-    {
-        return Attribute::make(
-            function() {
-                return new Shipment('city', 'streetName', 'streetNumber', 'test');
-            },
-            function(Shipment $shipment) {
-                return [
-                    'shipment_city' => $shipment->city,
-                    'shipment_street_name' => $shipment->streetName,
-                    'shipment_street_number' => $shipment->streetNumber,
-                    'shipment_receiver_full_name' => $shipment->receiverFullName,
-                ];
-            }
-        );
     }
 }
