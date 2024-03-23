@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Casts\Shipment;
 use App\Enums\PaymentMethod;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +15,7 @@ class Cart extends Model
 
     protected $casts = [
         'payment_method' => PaymentMethod::class,
-        'shipment'       => Shipment::class,
+        'shipment' => Shipment::class,
     ];
 
     public function items(): HasMany
