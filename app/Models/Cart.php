@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\Shipment;
 use App\Enums\PaymentMethod;
-use App\ValueObjects\Shipment;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

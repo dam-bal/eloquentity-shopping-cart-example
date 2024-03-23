@@ -2,7 +2,7 @@
 
 namespace App\ValueObjects;
 
-readonly class Shipment
+readonly class Shipment implements \JsonSerializable
 {
     public function __construct(
         public string $city,
@@ -11,5 +11,16 @@ readonly class Shipment
         public string $receiverFullName
     )
     {
+        // @TODO validation
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'city' => $this->city,
+            'streetName' => $this->streetName,
+            'streetNumber' => $this->streetNumber,
+            'receiverFullName' => $this->receiverFullName,
+        ];
     }
 }

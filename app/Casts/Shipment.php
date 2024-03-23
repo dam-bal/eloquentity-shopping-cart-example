@@ -15,13 +15,19 @@ class Shipment implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return new ShipmentValueObject('city', 'streetName', 'streetNumber', 'test');
+        return new ShipmentValueObject(
+            $attributes['shipment_city'],
+            $attributes['shipment_street_name'],
+            $attributes['shipment_street_number'],
+            $attributes['shipment_receiver_full_name']
+        );
     }
 
     /**
      * Prepare the given value for storage.
      *
      * @param  array<string, mixed>  $attributes
+     * @param ShipmentValueObject $value
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
