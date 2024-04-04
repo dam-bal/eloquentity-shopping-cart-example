@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AppSeeder extends Seeder
 {
+    public const CUSTOMER_ID = '9c5394f7-8322-44c9-807c-9de75417da74';
+    public const CART_ID = 'a1a5dc2a-e236-4e2d-863f-2562906bf206';
+    public const PRODUCT_ID = '2e95b370-a936-4787-a634-c8fea1894357';
+    public const USER_ID = 1;
+
     /**
      * Run the database seeds.
      */
@@ -20,6 +25,7 @@ class AppSeeder extends Seeder
     {
         $product1 = new Product();
 
+        $product1->id = self::PRODUCT_ID;
         $product1->name = "Product 1";
         $product1->sku = "PRODUCT-1";
         $product1->price = 15.0;
@@ -36,6 +42,7 @@ class AppSeeder extends Seeder
 
         $user = new User();
 
+        $user->id = self::USER_ID;
         $user->name = "User";
         $user->email = "user@app.com";
         $user->password = Hash::make('pass123');
@@ -44,6 +51,7 @@ class AppSeeder extends Seeder
 
         $customer = new Customer();
 
+        $customer->id = self::CUSTOMER_ID;
         $customer->first_name = "Test";
         $customer->last_name = "Testing";
         $customer->user_id = $user->id;
@@ -52,6 +60,7 @@ class AppSeeder extends Seeder
 
         $cart = new Cart();
 
+        $cart->id = self::CART_ID;
         $cart->customer_id = $customer->id;
 
         $cart->save();
