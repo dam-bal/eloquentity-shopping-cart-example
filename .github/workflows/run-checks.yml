@@ -50,6 +50,4 @@ jobs:
         run: php artisan migrate
 
       - name: Run tests
-        run: ./vendor/bin/phpunit
-        env:
-          APP_ENV: testing
+        run: php artisan test
