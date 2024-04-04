@@ -8,13 +8,12 @@ use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use InvalidArgumentException;
 
 class CustomerController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCustomerRequest $request)
     {
         $user = new User();
@@ -29,34 +28,32 @@ class CustomerController extends Controller
         $customer->user_id = $user->id;
         $customer->save();
 
-        return new JsonResponse(['user_id' => $user->id, 'customer_id' => $customer->id], 201);
+        return new JsonResponse(
+            [
+                'user_id' => $user->id,
+                'customer_id' => $customer->id
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     public function auth(AuthRequest $request)
     {
         /** @var User $user */
-        $user = User::query()->where('email', '=', $request->input('email'))->first();
-
-        if (!$user) {
-            throw new \InvalidArgumentException("Could not auth");
-        }
+        $user = User::query()->where('email', '=', $request->input('email'))->firstOrFail();
 
         if (!Hash::check($request->input('password'), $user->password)) {
-            throw new \InvalidArgumentException("Could not auth");
+            throw new InvalidArgumentException("Could not auth");
         }
 
-        return ['token' => $user->createToken('api')->plainTextToken];
+        return [
+            'token' => $user->createToken('api')->plainTextToken
+        ];
     }
 
     public function show(Request $request)
     {
-        $user = $request->user();
-
-        $customer = Customer::query()->where('user_id', '=', $user->id)->with('orders')->first();
-
-        if (!$customer) {
-            throw new \InvalidArgumentException();
-        }
+        $customer = $request->user()->customer;
 
         return [
             'id' => $customer->id,

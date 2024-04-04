@@ -13,17 +13,25 @@ readonly class Shipment implements \JsonSerializable
         public string $receiverFullName
     )
     {
-        if (empty($this->city) ||
-            empty($this->streetName) ||
-            empty($this->streetNumber) ||
-            empty($this->receiverFullName)
-        ) {
-            throw new InvalidArgumentException();
+        if (empty($this->city)) {
+            throw new InvalidArgumentException("city is required");
+        }
+
+        if (empty($this->streetName)) {
+            throw new InvalidArgumentException("streetName is required");
+        }
+
+        if (empty($this->streetNumber)) {
+            throw new InvalidArgumentException("streetNumber is required");
+        }
+
+        if (empty($this->receiverFullName)) {
+            throw new InvalidArgumentException("receiverFullName is required");
         }
 
         $names = explode(' ', $this->receiverFullName);
         if (count($names) <= 1) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('receiverFullName needs first name and last name');
         }
     }
 
