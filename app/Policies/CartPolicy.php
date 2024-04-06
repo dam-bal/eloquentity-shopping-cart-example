@@ -3,19 +3,10 @@
 namespace App\Policies;
 
 use App\Models\Cart;
-use App\Models\Customer;
 use App\Models\User;
 
 class CartPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        return false;
-    }
-
     /**
      * Determine whether the user can view the model.
      */
@@ -30,7 +21,6 @@ class CartPolicy
     public function create(User $user): bool
     {
         return true;
-        //return Customer::query()->where('user_id', '=', $user->id)->first() !== null;
     }
 
     /**
@@ -38,9 +28,7 @@ class CartPolicy
      */
     public function update(User $user, Cart $cart): bool
     {
-        $customer = Customer::query()->where('user_id', '=', $user->id)->firstOrFail();
-
-        return $cart->customer_id === $customer->id;
+        return $cart->customer_id === $user->customer->id;
     }
 
     /**

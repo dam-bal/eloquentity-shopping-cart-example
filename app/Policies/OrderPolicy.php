@@ -2,28 +2,17 @@
 
 namespace App\Policies;
 
-use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
 
 class OrderPolicy
 {
     /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        return false;
-    }
-
-    /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Order $order): bool
     {
-        $customer = Customer::query()->where('user_id', '=', $user->id)->firstOrFail();
-
-        return $order->customer_id === $customer?->id;
+        return $this->update($user, $order);
     }
 
     /**
@@ -39,9 +28,7 @@ class OrderPolicy
      */
     public function update(User $user, Order $order): bool
     {
-        $customer = Customer::query()->where('user_id', '=', $user->id)->firstOrFail();
-
-        return $order->customer_id === $customer?->id;
+        return $order->customer_id === $user->customer->id;
     }
 
     /**

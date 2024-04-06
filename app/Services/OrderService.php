@@ -10,12 +10,12 @@ use App\Repositories\Interfaces\OrderRepository;
 use App\ValueObjects\Shipment;
 use RuntimeException;
 
-class OrderService
+readonly class OrderService
 {
     public function __construct(
-        private readonly CartRepository  $cartRepository,
-        private readonly OrderRepository $orderRepository,
-        private readonly IdInterface     $idProvider
+        private CartRepository  $cartRepository,
+        private OrderRepository $orderRepository,
+        private IdInterface     $idProvider
     )
     {
     }

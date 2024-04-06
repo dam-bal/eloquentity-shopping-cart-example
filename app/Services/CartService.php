@@ -6,11 +6,11 @@ use App\Entities\Cart;
 use App\IdInterface;
 use App\Repositories\Interfaces\CartRepository;
 
-class CartService
+readonly class CartService
 {
     public function __construct(
-        private readonly CartRepository $cartRepository,
-        private readonly IdInterface    $idProvider
+        private CartRepository $cartRepository,
+        private IdInterface    $idProvider
     )
     {
     }
