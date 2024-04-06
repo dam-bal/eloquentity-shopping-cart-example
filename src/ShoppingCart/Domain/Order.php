@@ -35,6 +35,9 @@ class Order extends Entity implements JsonSerializable
         );
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public static function createFromCart(
         string        $id,
         Cart          $cart,

@@ -15,6 +15,9 @@ readonly class OrderService
     {
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function createOrderFromCart(string $cartId, Shipment $shipment, PaymentMethod $paymentMethod): Order
     {
         $cart = $this->cartRepository->get($cartId);
