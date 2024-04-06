@@ -53,3 +53,6 @@ jobs:
 
       - name: Deptrac
         run: php vendor/bin/deptrac
+
+      - name: PHPStan
+        run: php vendor/bin/phpstan analyse src --level 3

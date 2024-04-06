@@ -56,6 +56,9 @@ class Cart extends Entity implements JsonSerializable
         return null;
     }
 
+    /**
+     * @return CartItem[]
+     */
     public function getItems(): array
     {
         return $this->items;
