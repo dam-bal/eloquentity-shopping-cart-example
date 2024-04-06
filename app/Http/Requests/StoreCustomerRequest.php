@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Entities\Customer;
+use Core\ShoppingCart\Domain\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
