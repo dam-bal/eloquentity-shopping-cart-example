@@ -48,14 +48,14 @@ jobs:
           DB_DATABASE: testing
         run: php artisan migrate
 
-      - name: Run tests
+      - name: Tests
         run: php artisan test
 
-      - name: Deptrac
+      - name: Architecture Checks
         run: php vendor/bin/deptrac
 
-      - name: PHPStan
+      - name: Static Analysis
         run: php vendor/bin/phpstan analyse src --level 3
 
-      - name: PHPMD
+      - name: Mess Detection
         run: php vendor/bin/phpmd src/ text codesize,unusedcode,design,cleancode
