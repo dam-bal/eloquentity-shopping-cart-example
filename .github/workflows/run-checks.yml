@@ -40,13 +40,22 @@ jobs:
 
       - name: Create Database
         run: |
-          touch testing.sqlite
+          touch testing
 
       - name: Migrate
         env:
           DB_CONNECTION: sqlite
-          DB_DATABASE: testing.sqlite
+          DB_DATABASE: testing
         run: php artisan migrate
 
-      - name: Run tests
+      - name: Tests
         run: php artisan test
+
+      - name: Architecture Checks
+        run: php vendor/bin/deptrac
+
+      - name: Static Analysis
+        run: php vendor/bin/phpstan analyse src --level 3
+
+      - name: Mess Detection
+        run: php vendor/bin/phpmd src/ text codesize,unusedcode,design,cleancode

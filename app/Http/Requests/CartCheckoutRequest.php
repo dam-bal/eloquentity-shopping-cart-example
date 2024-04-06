@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\PaymentMethod;
-use App\ValueObjects\Shipment;
+use Core\ShoppingCart\Domain\PaymentMethod;
+use Core\ShoppingCart\Domain\Shipment;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

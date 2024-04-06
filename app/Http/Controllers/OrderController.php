@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Repositories\Interfaces\OrderRepository;
+use Core\ShoppingCart\Domain\OrderRepository;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller

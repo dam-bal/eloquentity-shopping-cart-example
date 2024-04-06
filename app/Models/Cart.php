@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Shipment;
-use App\Enums\PaymentMethod;
+use Core\ShoppingCart\Domain\PaymentMethod;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\IdInterface;
-use App\Repositories\EloquentCartRepository;
-use App\Repositories\Interfaces\CartRepository;
-use App\Repositories\Interfaces\OrderRepository;
-use App\Repositories\Interfaces\ProductRepository;
-use App\Repositories\EloquentOrderRepository;
-use App\RamseyUuid;
-use App\Repositories\EloquentProductRepository;
+use Core\Shared\Domain\IdInterface;
+use Core\Shared\Infrastructure\RamseyUuid;
+use Core\ShoppingCart\Domain\CartRepository;
+use Core\ShoppingCart\Domain\OrderRepository;
+use Core\ShoppingCart\Domain\ProductRepository;
+use Core\ShoppingCart\Infrastructure\EloquentCartRepository;
+use Core\ShoppingCart\Infrastructure\EloquentOrderRepository;
+use Core\ShoppingCart\Infrastructure\EloquentProductRepository;
 use Eloquentity\Eloquentity;
 use Illuminate\Support\ServiceProvider;
 

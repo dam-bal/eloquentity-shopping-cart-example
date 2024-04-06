@@ -2,7 +2,7 @@
 
 namespace App\Casts;
 
-use App\ValueObjects\Shipment as ShipmentValueObject;
+use Core\ShoppingCart\Domain\Shipment as ShipmentValueObject;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
