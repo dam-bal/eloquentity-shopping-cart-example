@@ -8,9 +8,8 @@ class CartItem implements \JsonSerializable
 
     public function __construct(
         private readonly Product $product,
-        private int              $quantity = 1
-    )
-    {
+        private int $quantity = 1
+    ) {
         $this->productId = $this->product->getId();
     }
 

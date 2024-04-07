@@ -59,3 +59,7 @@ jobs:
 
       - name: Mess Detection
         run: php vendor/bin/phpmd src/ text codesize,unusedcode,design,cleancode
+
+      - name: Code Formatting
+        run: |
+          php vendor/bin/phpcs --standard=PSR12 src/

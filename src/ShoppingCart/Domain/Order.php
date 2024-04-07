@@ -15,14 +15,13 @@ class Order extends Entity implements JsonSerializable
      * @param OrderLine[] $lines
      */
     public function __construct(
-        string                         $id,
-        public readonly string         $customerId,
-        private readonly Shipment      $shipment,
+        string $id,
+        public readonly string $customerId,
+        private readonly Shipment $shipment,
         private readonly PaymentMethod $paymentMethod,
-        private readonly array         $lines = [],
-        private readonly DateTime      $placedDate = new DateTime()
-    )
-    {
+        private readonly array $lines = [],
+        private readonly DateTime $placedDate = new DateTime()
+    ) {
         $this->setId($id);
     }
 
@@ -39,12 +38,11 @@ class Order extends Entity implements JsonSerializable
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public static function createFromCart(
-        string        $id,
-        Cart          $cart,
-        Shipment      $shipment,
+        string $id,
+        Cart $cart,
+        Shipment $shipment,
         PaymentMethod $paymentMethod
-    ): Order
-    {
+    ): Order {
         $orderLines = [];
 
         foreach ($cart->getItems() as $item) {

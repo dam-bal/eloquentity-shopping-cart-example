@@ -19,3 +19,8 @@ echo "##################"
 echo "# Mess Detection #"
 echo "##################"
 ./vendor/bin/sail php vendor/bin/phpmd src/ text codesize,unusedcode,design,cleancode
+
+echo "###################"
+echo "# Code Formatting #"
+echo "###################"
+./vendor/bin/sail php vendor/bin/phpcs --standard=PSR12 src/

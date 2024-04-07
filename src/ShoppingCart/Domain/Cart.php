@@ -12,10 +12,9 @@ class Cart extends Entity implements JsonSerializable
     private bool $completed = false;
 
     public function __construct(
-        string                  $id,
+        string $id,
         private readonly string $customerId
-    )
-    {
+    ) {
         $this->setId($id);
     }
 
