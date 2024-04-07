@@ -24,6 +24,9 @@ readonly final class OrderDto implements JsonSerializable
     ) {
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public static function createFromOrderDomainObject(Order $order): self
     {
         return new self(
