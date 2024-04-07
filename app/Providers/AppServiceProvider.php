@@ -23,10 +23,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->scoped(Eloquentity::class, static fn(): Eloquentity => Eloquentity::create());
 
         $this->app->singleton(IdInterface::class, RamseyUuid::class);
-
-        $this->app->bind(OrderRepository::class, EloquentOrderRepository::class);
-        $this->app->bind(CartRepository::class, EloquentCartRepository::class);
-        $this->app->bind(ProductRepository::class, EloquentProductRepository::class);
+        $this->app->singleton(OrderRepository::class, EloquentOrderRepository::class);
+        $this->app->singleton(CartRepository::class, EloquentCartRepository::class);
+        $this->app->singleton(ProductRepository::class, EloquentProductRepository::class);
     }
 
     /**

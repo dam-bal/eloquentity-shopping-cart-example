@@ -3,8 +3,9 @@
 namespace Core\ShoppingCart\Domain;
 
 use InvalidArgumentException;
+use JsonSerializable;
 
-readonly class Shipment implements \JsonSerializable
+readonly class Shipment implements JsonSerializable
 {
     public function __construct(
         public string $city,

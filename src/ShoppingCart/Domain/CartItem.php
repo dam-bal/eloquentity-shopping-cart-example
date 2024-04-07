@@ -2,7 +2,9 @@
 
 namespace Core\ShoppingCart\Domain;
 
-class CartItem implements \JsonSerializable
+use JsonSerializable;
+
+class CartItem implements JsonSerializable
 {
     private readonly string $productId;
 
