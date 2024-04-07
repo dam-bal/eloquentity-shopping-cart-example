@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartCheckoutRequest;
 use App\Models\Cart;
-use Core\ShoppingCart\Application\CartDto;
 use Core\ShoppingCart\Domain\CartRepository;
 use Core\ShoppingCart\Domain\CartService;
+use Core\ShoppingCart\Application\CartService as ApplicationCartService;
 use Core\ShoppingCart\Domain\OrderService;
 use Core\ShoppingCart\Domain\ProductRepository;
 use Illuminate\Http\JsonResponse;
@@ -19,7 +19,8 @@ class CartController extends Controller
         private readonly CartRepository $cartRepository,
         private readonly ProductRepository $productRepository,
         private readonly OrderService $orderService,
-        private readonly CartService $cartService
+        private readonly CartService $cartService,
+        private readonly ApplicationCartService $applicationCartService
     ) {
     }
 
@@ -46,11 +47,7 @@ class CartController extends Controller
             abort(403);
         }
 
-        return new JsonResponse(
-            CartDto::createFromCartDomainObject(
-                $this->cartRepository->get($cartId)
-            )
-        );
+        return new JsonResponse($this->applicationCartService->getCartDto($cartId));
     }
 
     public function addProduct(string $cartId, string $productId, Request $request): JsonResponse
