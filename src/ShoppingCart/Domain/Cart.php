@@ -2,9 +2,7 @@
 
 namespace Core\ShoppingCart\Domain;
 
-use JsonSerializable;
-
-class Cart extends Entity implements JsonSerializable
+class Cart extends Entity
 {
     /** @var CartItem[] */
     private array $items = [];
@@ -13,7 +11,7 @@ class Cart extends Entity implements JsonSerializable
 
     public function __construct(
         string $id,
-        private readonly string $customerId
+        public readonly string $customerId
     ) {
         $this->setId($id);
     }
@@ -63,11 +61,6 @@ class Cart extends Entity implements JsonSerializable
         return $this->items;
     }
 
-    public function getCustomerId(): string
-    {
-        return $this->customerId;
-    }
-
     public function markAsCompleted(): void
     {
         $this->completed = true;
@@ -76,13 +69,5 @@ class Cart extends Entity implements JsonSerializable
     public function isCompleted(): bool
     {
         return $this->completed;
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'customer_id' => $this->customerId,
-            'items' => $this->items,
-        ];
     }
 }

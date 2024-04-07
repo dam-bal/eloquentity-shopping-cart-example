@@ -3,9 +3,8 @@
 namespace Core\ShoppingCart\Domain;
 
 use InvalidArgumentException;
-use JsonSerializable;
 
-readonly class Shipment implements JsonSerializable
+readonly class Shipment
 {
     public function __construct(
         public string $city,
@@ -33,15 +32,5 @@ readonly class Shipment implements JsonSerializable
         if (count($names) <= 1) {
             throw new InvalidArgumentException('receiverFullName needs first name and last name');
         }
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'city' => $this->city,
-            'streetName' => $this->streetName,
-            'streetNumber' => $this->streetNumber,
-            'receiverFullName' => $this->receiverFullName,
-        ];
     }
 }

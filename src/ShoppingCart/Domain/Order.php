@@ -4,10 +4,9 @@ namespace Core\ShoppingCart\Domain;
 
 use Carbon\Carbon;
 use DateTime;
-use JsonSerializable;
 use RuntimeException;
 
-class Order extends Entity implements JsonSerializable
+class Order extends Entity
 {
     private OrderStatus $status = OrderStatus::PLACED;
 
@@ -23,6 +22,36 @@ class Order extends Entity implements JsonSerializable
         private readonly DateTime $placedDate = new DateTime()
     ) {
         $this->setId($id);
+    }
+
+    public function getCustomerId(): string
+    {
+        return $this->customerId;
+    }
+
+    public function getShipment(): Shipment
+    {
+        return $this->shipment;
+    }
+
+    public function getPaymentMethod(): PaymentMethod
+    {
+        return $this->paymentMethod;
+    }
+
+    public function getLines(): array
+    {
+        return $this->lines;
+    }
+
+    public function getPlacedDate(): DateTime
+    {
+        return $this->placedDate;
+    }
+
+    public function getStatus(): OrderStatus
+    {
+        return $this->status;
     }
 
     public function getPrice(): float
@@ -64,24 +93,11 @@ class Order extends Entity implements JsonSerializable
 
         return new Order(
             $id,
-            $cart->getCustomerId(),
+            $cart->customerId,
             $shipment,
             $paymentMethod,
             $orderLines,
             Carbon::now()
         );
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'status' => $this->status,
-            'lines' => $this->lines,
-            'customerId' => $this->customerId,
-            'price' => $this->getPrice(),
-            'shipment' => $this->shipment,
-            'paymentMethod' => $this->paymentMethod,
-            'placedDate' => $this->placedDate->format('Y-m-d H:i:s'),
-        ];
     }
 }

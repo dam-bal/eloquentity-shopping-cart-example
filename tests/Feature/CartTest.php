@@ -31,7 +31,7 @@ class CartTest extends TestCase
 
         $json = $response->json();
 
-        $cartId = $json['cartId'];
+        $cartId = $json['cart_id'];
 
         $this->assertDatabaseHas(
             Cart::class,
@@ -58,7 +58,7 @@ class CartTest extends TestCase
                 'customer_id',
                 'items' => [
                     '*' => [
-                        'id',
+                        'product_id',
                         'quantity'
                     ]
                 ]
@@ -127,7 +127,7 @@ class CartTest extends TestCase
             ]
         );
 
-        $orderId = $response->json('orderId');
+        $orderId = $response->json('order_id');
 
         $this->assertDatabaseHas(
             Cart::class,

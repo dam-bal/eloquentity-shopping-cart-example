@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartCheckoutRequest;
 use App\Models\Cart;
+use Core\ShoppingCart\Application\CartDto;
 use Core\ShoppingCart\Domain\CartRepository;
 use Core\ShoppingCart\Domain\CartService;
 use Core\ShoppingCart\Domain\OrderService;
@@ -15,12 +16,11 @@ use Illuminate\Http\Response;
 class CartController extends Controller
 {
     public function __construct(
-        private readonly CartRepository    $cartRepository,
+        private readonly CartRepository $cartRepository,
         private readonly ProductRepository $productRepository,
-        private readonly OrderService      $orderService,
-        private readonly CartService       $cartService
-    )
-    {
+        private readonly OrderService $orderService,
+        private readonly CartService $cartService
+    ) {
     }
 
     public function store(Request $request): JsonResponse
@@ -33,7 +33,7 @@ class CartController extends Controller
 
         return new JsonResponse(
             [
-                'cartId' => $cartEntity->getId(),
+                'cart_id' => $cartEntity->getId(),
             ],
             Response::HTTP_CREATED
         );
@@ -46,7 +46,11 @@ class CartController extends Controller
             abort(403);
         }
 
-        return new JsonResponse($this->cartRepository->get($cartId));
+        return new JsonResponse(
+            CartDto::createFromCartDomainObject(
+                $this->cartRepository->get($cartId)
+            )
+        );
     }
 
     public function addProduct(string $cartId, string $productId, Request $request): JsonResponse
@@ -61,7 +65,7 @@ class CartController extends Controller
 
         $cartEntity->addProduct($productEntity);
 
-        return new JsonResponse($cartEntity, Response::HTTP_CREATED);
+        return new JsonResponse(null, Response::HTTP_CREATED);
     }
 
     public function removeProduct(string $cartId, string $productId, Request $request): JsonResponse
@@ -76,7 +80,7 @@ class CartController extends Controller
 
         $cartEntity->removeProduct($productEntity);
 
-        return new JsonResponse($cartEntity);
+        return new JsonResponse(null);
     }
 
     public function checkout(string $cartId, CartCheckoutRequest $request): JsonResponse
@@ -89,8 +93,7 @@ class CartController extends Controller
 
         return new JsonResponse(
             [
-                'orderId' => $order->getId(),
-                'order' => $order,
+                'order_id' => $order->getId(),
             ],
             Response::HTTP_CREATED
         );
