@@ -36,7 +36,7 @@ readonly final class OrderDto implements JsonSerializable
             $order->getShipment(),
             $order->getPaymentMethod()->value,
             array_map(
-                static fn(OrderLine $orderLine): OrderLineDto => OrderLineDto::createFromOrderLineDomainObject($orderLine),
+                fn(OrderLine $orderLine): OrderLineDto => OrderLineDto::createFromOrderLineDomainObject($orderLine),
                 $order->getLines()
             ),
             $order->getPlacedDate()
