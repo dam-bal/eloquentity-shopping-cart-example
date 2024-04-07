@@ -13,13 +13,19 @@ class Cart extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $casts = [
-        'payment_method' => PaymentMethod::class,
-        'shipment' => Shipment::class,
-    ];
+    /**
+     * @return array<string, mixed>
+     */
+    protected function casts(): array
+    {
+        return [
+            'payment_method' => PaymentMethod::class,
+            'shipment' => Shipment::class,
+        ];
+    }
 
     public function items(): HasMany
     {
-        return $this->hasMany(CartItem::class, 'cart_id', 'id');
+        return $this->hasMany(CartItem::class);
     }
 }

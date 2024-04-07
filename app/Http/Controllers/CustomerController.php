@@ -14,7 +14,7 @@ use InvalidArgumentException;
 
 class CustomerController extends Controller
 {
-    public function store(StoreCustomerRequest $request)
+    public function store(StoreCustomerRequest $request): JsonResponse
     {
         $user = new User();
         $user->name = $request->input('first_name') . ' ' . $request->input('last_name');
@@ -37,7 +37,7 @@ class CustomerController extends Controller
         );
     }
 
-    public function auth(AuthRequest $request)
+    public function auth(AuthRequest $request): JsonResponse
     {
         /** @var User $user */
         $user = User::query()->where('email', '=', $request->input('email'))->firstOrFail();
@@ -46,20 +46,24 @@ class CustomerController extends Controller
             throw new InvalidArgumentException("Could not auth");
         }
 
-        return [
-            'token' => $user->createToken('api')->plainTextToken
-        ];
+        return new JsonResponse(
+            [
+                'token' => $user->createToken('api')->plainTextToken
+            ]
+        );
     }
 
-    public function show(Request $request)
+    public function show(Request $request): JsonResponse
     {
         $customer = $request->user()->customer;
 
-        return [
-            'id' => $customer->id,
-            'first_name' => $customer->first_name,
-            'last_name' => $customer->last_name,
-            'orders' => $customer->orders,
-        ];
+        return new JsonResponse(
+            [
+                'id' => $customer->id,
+                'first_name' => $customer->first_name,
+                'last_name' => $customer->last_name,
+                'orders' => $customer->orders,
+            ]
+        );
     }
 }
