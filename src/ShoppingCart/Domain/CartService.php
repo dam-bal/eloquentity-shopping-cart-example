@@ -8,9 +8,8 @@ readonly class CartService
 {
     public function __construct(
         private CartRepository $cartRepository,
-        private IdInterface    $idProvider
-    )
-    {
+        private IdInterface $idProvider
+    ) {
     }
 
     public function createCart(string $customerId): Cart

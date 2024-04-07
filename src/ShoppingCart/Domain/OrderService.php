@@ -8,11 +8,10 @@ use RuntimeException;
 readonly class OrderService
 {
     public function __construct(
-        private CartRepository  $cartRepository,
+        private CartRepository $cartRepository,
         private OrderRepository $orderRepository,
-        private IdInterface     $idProvider
-    )
-    {
+        private IdInterface $idProvider
+    ) {
     }
 
     /**

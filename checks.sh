@@ -1,21 +1,40 @@
 #!/usr/bin/env sh
 
+run_command() {
+    temp_file=$(mktemp)
+    $1 >"$temp_file" 2>&1
+
+    if [ $? -eq 0 ]; then
+        echo -e "\e[32mSUCCESS\e[0m"
+        rm "$temp_file"  # Clean up the temporary file on success
+    else
+        echo -e "\e[31mFAIL\e[0m"
+        cat "$temp_file"  # Display the output on failure
+        rm "$temp_file"  # Clean up the temporary file
+    fi
+}
+
 echo "#########"
 echo "# Tests #"
 echo "#########"
-./vendor/bin/sail artisan test
+run_command "./vendor/bin/sail artisan test"
 
 echo "#######################"
 echo "# Architecture Checks #"
 echo "#######################"
-./vendor/bin/sail php vendor/bin/deptrac
+run_command "./vendor/bin/sail php vendor/bin/deptrac"
 
 echo "###################"
 echo "# Static Analysis #"
 echo "###################"
-./vendor/bin/sail php vendor/bin/phpstan analyse src --level 3
+run_command "./vendor/bin/sail php vendor/bin/phpstan analyse src --level 3"
 
 echo "##################"
 echo "# Mess Detection #"
 echo "##################"
-./vendor/bin/sail php vendor/bin/phpmd src/ text codesize,unusedcode,design,cleancode
+run_command "./vendor/bin/sail php vendor/bin/phpmd src/ text codesize,unusedcode,design,cleancode"
+
+echo "###################"
+echo "# Code Formatting #"
+echo "###################"
+run_command "./vendor/bin/sail php vendor/bin/phpcs --standard=PSR12 src/"

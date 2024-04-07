@@ -11,8 +11,7 @@ readonly class Shipment implements \JsonSerializable
         public string $streetName,
         public string $streetNumber,
         public string $receiverFullName
-    )
-    {
+    ) {
         if (empty($this->city)) {
             throw new InvalidArgumentException("city is required");
         }

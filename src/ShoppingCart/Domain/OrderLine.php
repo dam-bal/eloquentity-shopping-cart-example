@@ -9,10 +9,9 @@ readonly class OrderLine implements JsonSerializable
     public function __construct(
         public string $name,
         public string $sku,
-        public float  $unitPrice,
-        public int    $quantity
-    )
-    {
+        public float $unitPrice,
+        public int $quantity
+    ) {
     }
 
     public function getTotalPrice(): float
