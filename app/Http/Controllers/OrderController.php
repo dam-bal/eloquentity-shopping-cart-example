@@ -19,6 +19,38 @@ class OrderController extends Controller
             abort(403);
         }
 
-        return new JsonResponse($this->orderRepository->get($orderId));
+        $order = $this->orderRepository->get($orderId);
+
+        $lines = [];
+        foreach ($order->getLines() as $orderLine) {
+            $lines[] = [
+                'name' => $orderLine->name,
+                'sku' => $orderLine->sku,
+                'unit_price' => $orderLine->unitPrice,
+                'quantity' => $orderLine->quantity,
+                'price' => $orderLine->getTotalPrice(),
+            ];
+        }
+
+        $orderShipment = $order->getShipment();
+
+        $shipment = [
+            'city' => $orderShipment->city,
+            'street_name' => $orderShipment->streetName,
+            'street_number' => $orderShipment->streetNumber,
+            'receiver_full_name' => $orderShipment->receiverFullName,
+        ];
+
+        return new JsonResponse(
+            [
+                'status' => $order->getStatus(),
+                'lines' => $lines,
+                'customer_id' => $order->customerId,
+                'price' => $order->getPrice(),
+                'shipment' => $shipment,
+                'payment_method' => $order->getPaymentMethod(),
+                'placed_date' => $order->getPlacedDate()->format('Y-m-d H:i:s'),
+            ]
+        );
     }
 }

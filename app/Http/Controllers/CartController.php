@@ -15,12 +15,11 @@ use Illuminate\Http\Response;
 class CartController extends Controller
 {
     public function __construct(
-        private readonly CartRepository    $cartRepository,
+        private readonly CartRepository $cartRepository,
         private readonly ProductRepository $productRepository,
-        private readonly OrderService      $orderService,
-        private readonly CartService       $cartService
-    )
-    {
+        private readonly OrderService $orderService,
+        private readonly CartService $cartService
+    ) {
     }
 
     public function store(Request $request): JsonResponse
@@ -46,7 +45,22 @@ class CartController extends Controller
             abort(403);
         }
 
-        return new JsonResponse($this->cartRepository->get($cartId));
+        $cart = $this->cartRepository->get($cartId);
+
+        $items = [];
+        foreach ($cart->getItems() as $item) {
+            $items[] = [
+                'product_id' => $item->productId,
+                'quantity' => $item->getQuantity()
+            ];
+        }
+
+        return new JsonResponse(
+            [
+                'customer_id' => $cart->customerId,
+                'items' => $items,
+            ]
+        );
     }
 
     public function addProduct(string $cartId, string $productId, Request $request): JsonResponse

@@ -2,11 +2,9 @@
 
 namespace Core\ShoppingCart\Domain;
 
-use JsonSerializable;
-
-class CartItem implements JsonSerializable
+class CartItem
 {
-    private readonly string $productId;
+    public readonly string $productId;
 
     public function __construct(
         private readonly Product $product,
@@ -37,13 +35,5 @@ class CartItem implements JsonSerializable
         if ($this->quantity < 0) {
             $this->quantity = 0;
         }
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'product_id' => $this->productId,
-            'quantity' => $this->quantity,
-        ];
     }
 }

@@ -2,9 +2,7 @@
 
 namespace Core\ShoppingCart\Domain;
 
-use JsonSerializable;
-
-readonly class OrderLine implements JsonSerializable
+readonly class OrderLine
 {
     public function __construct(
         public string $name,
@@ -17,16 +15,5 @@ readonly class OrderLine implements JsonSerializable
     public function getTotalPrice(): float
     {
         return $this->unitPrice * $this->quantity;
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'name' => $this->name,
-            'sku' => $this->sku,
-            'unit_price' => $this->unitPrice,
-            'quantity' => $this->quantity,
-            'price' => $this->getTotalPrice()
-        ];
     }
 }
