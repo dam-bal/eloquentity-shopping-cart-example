@@ -10,6 +10,9 @@ readonly class OrderService
     {
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function getOrderDto(string $orderId): OrderDto
     {
         return OrderDto::createFromOrderDomainObject(

@@ -10,6 +10,9 @@ readonly class CartService
     {
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function getCartDto(string $cartId): CartDto
     {
         return CartDto::createFromCartDomainObject($this->cartRepository->get($cartId));
