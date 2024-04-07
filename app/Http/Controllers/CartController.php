@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CartCheckoutRequest;
 use App\Models\Cart;
 use Core\ShoppingCart\Domain\CartRepository;
-use Core\ShoppingCart\Domain\CartService;
 use Core\ShoppingCart\Application\CartService as ApplicationCartService;
 use Core\ShoppingCart\Domain\OrderService;
 use Core\ShoppingCart\Domain\ProductRepository;
@@ -19,7 +18,6 @@ class CartController extends Controller
         private readonly CartRepository $cartRepository,
         private readonly ProductRepository $productRepository,
         private readonly OrderService $orderService,
-        private readonly CartService $cartService,
         private readonly ApplicationCartService $applicationCartService
     ) {
     }
@@ -30,7 +28,7 @@ class CartController extends Controller
             abort(403);
         }
 
-        $cartEntity = $this->cartService->createCart($request->user()->customer->id);
+        $cartEntity = $this->applicationCartService->createCart($request->user()->customer->id);
 
         return new JsonResponse(
             [
