@@ -42,7 +42,7 @@ class CartItem implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
-            'id' => $this->product->getId(),
+            'product_id' => $this->productId,
             'quantity' => $this->quantity,
         ];
     }

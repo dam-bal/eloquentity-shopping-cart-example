@@ -39,9 +39,9 @@ readonly class Shipment implements JsonSerializable
     {
         return [
             'city' => $this->city,
-            'streetName' => $this->streetName,
-            'streetNumber' => $this->streetNumber,
-            'receiverFullName' => $this->receiverFullName,
+            'street_name' => $this->streetName,
+            'street_number' => $this->streetNumber,
+            'receiver_full_name' => $this->receiverFullName,
         ];
     }
 }

@@ -33,7 +33,7 @@ class CartController extends Controller
 
         return new JsonResponse(
             [
-                'cartId' => $cartEntity->getId(),
+                'cart_id' => $cartEntity->getId(),
             ],
             Response::HTTP_CREATED
         );
@@ -61,7 +61,7 @@ class CartController extends Controller
 
         $cartEntity->addProduct($productEntity);
 
-        return new JsonResponse($cartEntity, Response::HTTP_CREATED);
+        return new JsonResponse(null, Response::HTTP_CREATED);
     }
 
     public function removeProduct(string $cartId, string $productId, Request $request): JsonResponse
@@ -76,7 +76,7 @@ class CartController extends Controller
 
         $cartEntity->removeProduct($productEntity);
 
-        return new JsonResponse($cartEntity);
+        return new JsonResponse(null);
     }
 
     public function checkout(string $cartId, CartCheckoutRequest $request): JsonResponse
@@ -89,8 +89,7 @@ class CartController extends Controller
 
         return new JsonResponse(
             [
-                'orderId' => $order->getId(),
-                'order' => $order,
+                'order_id' => $order->getId(),
             ],
             Response::HTTP_CREATED
         );

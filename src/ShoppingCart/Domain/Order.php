@@ -77,11 +77,11 @@ class Order extends Entity implements JsonSerializable
         return [
             'status' => $this->status,
             'lines' => $this->lines,
-            'customerId' => $this->customerId,
+            'customer_id' => $this->customerId,
             'price' => $this->getPrice(),
             'shipment' => $this->shipment,
-            'paymentMethod' => $this->paymentMethod,
-            'placedDate' => $this->placedDate->format('Y-m-d H:i:s'),
+            'payment_method' => $this->paymentMethod,
+            'placed_date' => $this->placedDate->format('Y-m-d H:i:s'),
         ];
     }
 }

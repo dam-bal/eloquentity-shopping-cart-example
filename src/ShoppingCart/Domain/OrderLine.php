@@ -24,7 +24,7 @@ readonly class OrderLine implements JsonSerializable
         return [
             'name' => $this->name,
             'sku' => $this->sku,
-            'unitPrice' => $this->unitPrice,
+            'unit_price' => $this->unitPrice,
             'quantity' => $this->quantity,
             'price' => $this->getTotalPrice()
         ];
