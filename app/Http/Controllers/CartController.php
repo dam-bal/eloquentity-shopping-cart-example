@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartCheckoutRequest;
 use App\Models\Cart;
+use Core\ShoppingCart\Application\CartDto;
 use Core\ShoppingCart\Domain\CartRepository;
 use Core\ShoppingCart\Domain\CartService;
 use Core\ShoppingCart\Domain\OrderService;
@@ -45,21 +46,10 @@ class CartController extends Controller
             abort(403);
         }
 
-        $cart = $this->cartRepository->get($cartId);
-
-        $items = [];
-        foreach ($cart->getItems() as $item) {
-            $items[] = [
-                'product_id' => $item->productId,
-                'quantity' => $item->getQuantity()
-            ];
-        }
-
         return new JsonResponse(
-            [
-                'customer_id' => $cart->customerId,
-                'items' => $items,
-            ]
+            CartDto::createFromCartDomainObject(
+                $this->cartRepository->get($cartId)
+            )
         );
     }
 
