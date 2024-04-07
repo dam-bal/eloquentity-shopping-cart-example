@@ -14,15 +14,21 @@ class Order extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $casts = [
-        'status' => OrderStatus::class,
-        'placed_date' => 'datetime',
-        'shipment' => Shipment::class,
-        'payment_method' => PaymentMethod::class,
-    ];
+    /**
+     * @return array<string, mixed>
+     */
+    protected function casts(): array
+    {
+        return [
+            'status' => OrderStatus::class,
+            'placed_date' => 'datetime',
+            'shipment' => Shipment::class,
+            'payment_method' => PaymentMethod::class,
+        ];
+    }
 
     public function lines(): HasMany
     {
-        return $this->hasMany(OrderLine::class, 'order_id', 'id');
+        return $this->hasMany(OrderLine::class);
     }
 }

@@ -11,9 +11,10 @@ use Core\ShoppingCart\Infrastructure\EloquentCartRepository;
 use Core\ShoppingCart\Infrastructure\EloquentOrderRepository;
 use Core\ShoppingCart\Infrastructure\EloquentProductRepository;
 use Eloquentity\Eloquentity;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register any application services.
@@ -34,5 +35,21 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array<int, string>
+     */
+    public function provides(): array
+    {
+        return [
+            Eloquentity::class,
+            IdInterface::class,
+            OrderRepository::class,
+            CartRepository::class,
+            ProductRepository::class,
+        ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CartCheckoutRequest;
-use App\Http\Requests\StoreCartRequest;
 use App\Models\Cart;
 use Core\ShoppingCart\Domain\CartRepository;
 use Core\ShoppingCart\Domain\CartService;
@@ -24,7 +23,7 @@ class CartController extends Controller
     {
     }
 
-    public function store(StoreCartRequest $request)
+    public function store(Request $request): JsonResponse
     {
         if (!$request->user()->can('create', Cart::class)) {
             abort(403);
@@ -41,16 +40,16 @@ class CartController extends Controller
     }
 
 
-    public function show(string $cartId, Request $request)
+    public function show(string $cartId, Request $request): JsonResponse
     {
         if (!$request->user()->can('view', Cart::query()->findOrFail($cartId))) {
             abort(403);
         }
 
-        return $this->cartRepository->get($cartId);
+        return new JsonResponse($this->cartRepository->get($cartId));
     }
 
-    public function addProduct(string $cartId, string $productId, Request $request)
+    public function addProduct(string $cartId, string $productId, Request $request): JsonResponse
     {
         if (!$request->user()->can('update', Cart::query()->findOrFail($cartId))) {
             abort(403);
@@ -65,7 +64,7 @@ class CartController extends Controller
         return new JsonResponse($cartEntity, Response::HTTP_CREATED);
     }
 
-    public function removeProduct(string $cartId, string $productId, Request $request)
+    public function removeProduct(string $cartId, string $productId, Request $request): JsonResponse
     {
         if (!$request->user()->can('update', Cart::query()->findOrFail($cartId))) {
             abort(403);
@@ -77,10 +76,10 @@ class CartController extends Controller
 
         $cartEntity->removeProduct($productEntity);
 
-        return $cartEntity;
+        return new JsonResponse($cartEntity);
     }
 
-    public function checkout(string $cartId, CartCheckoutRequest $request)
+    public function checkout(string $cartId, CartCheckoutRequest $request): JsonResponse
     {
         if (!$request->user()->can('update', Cart::query()->findOrFail($cartId))) {
             abort(403);
