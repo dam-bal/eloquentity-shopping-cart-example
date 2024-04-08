@@ -55,7 +55,7 @@ jobs:
         run: php vendor/bin/deptrac
 
       - name: Static Analysis
-        run: php vendor/bin/phpstan analyse src --level 3
+        run: php vendor/bin/phpstan analyse src --level 9
 
       - name: Mess Detection
         run: php vendor/bin/phpmd src/ text codesize,unusedcode,design,cleancode

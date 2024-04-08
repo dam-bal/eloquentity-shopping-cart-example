@@ -3,6 +3,7 @@
 namespace Core\ShoppingCart\Domain;
 
 use Carbon\Carbon;
+use Core\Shared\Domain\Entity;
 use DateTime;
 use RuntimeException;
 
@@ -39,6 +40,9 @@ class Order extends Entity
         return $this->paymentMethod;
     }
 
+    /**
+     * @return OrderLine[]
+     */
     public function getLines(): array
     {
         return $this->lines;

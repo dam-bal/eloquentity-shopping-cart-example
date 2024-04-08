@@ -27,7 +27,7 @@ run_command "./vendor/bin/sail php vendor/bin/deptrac"
 echo "###################"
 echo "# Static Analysis #"
 echo "###################"
-run_command "./vendor/bin/sail php vendor/bin/phpstan analyse src --level 3"
+run_command "./vendor/bin/sail php vendor/bin/phpstan analyse src --level 9"
 
 echo "##################"
 echo "# Mess Detection #"

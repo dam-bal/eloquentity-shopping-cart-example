@@ -2,6 +2,8 @@
 
 namespace Core\ShoppingCart\Domain;
 
+use Core\Shared\Domain\Entity;
+
 class Customer extends Entity
 {
     public function __construct(

@@ -7,6 +7,7 @@ use Core\ShoppingCart\Domain\Product as ProductEntity;
 use Core\ShoppingCart\Domain\ProductRepository;
 use Eloquentity\Eloquentity;
 use Eloquentity\Exception\EloquentityException;
+use Illuminate\Database\Eloquent\Model;
 use ReflectionException;
 
 final readonly class EloquentProductRepository implements ProductRepository
@@ -21,7 +22,10 @@ final readonly class EloquentProductRepository implements ProductRepository
      */
     public function get(string $id): ProductEntity
     {
-        return $this->eloquentity->map(ProductEloquentModel::query()->findOrFail($id), ProductEntity::class);
+        /** @var Model $model */
+        $model = ProductEloquentModel::query()->findOrFail($id);
+
+        return $this->eloquentity->map($model, ProductEntity::class);
     }
 
     /**

@@ -7,6 +7,7 @@ use Core\ShoppingCart\Domain\Order as OrderEntity;
 use Core\ShoppingCart\Domain\OrderRepository;
 use Eloquentity\Eloquentity;
 use Eloquentity\Exception\EloquentityException;
+use Illuminate\Database\Eloquent\Model;
 use ReflectionException;
 
 final readonly class EloquentOrderRepository implements OrderRepository
@@ -21,7 +22,10 @@ final readonly class EloquentOrderRepository implements OrderRepository
      */
     public function get(string $id): OrderEntity
     {
-        return $this->eloquentity->map(OrderEloquentModel::query()->findOrFail($id), OrderEntity::class);
+        /** @var Model $model */
+        $model = OrderEloquentModel::query()->findOrFail($id);
+
+        return $this->eloquentity->map($model, OrderEntity::class);
     }
 
     /**
