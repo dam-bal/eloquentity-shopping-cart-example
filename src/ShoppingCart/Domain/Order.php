@@ -25,11 +25,6 @@ class Order extends Entity
         $this->setId($id);
     }
 
-    public function getCustomerId(): string
-    {
-        return $this->customerId;
-    }
-
     public function getShipment(): Shipment
     {
         return $this->shipment;
