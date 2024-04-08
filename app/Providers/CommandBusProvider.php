@@ -8,8 +8,6 @@ use Illuminate\Support\ServiceProvider;
 
 class CommandBusProvider extends ServiceProvider
 {
-    private const COMMAND_HANDLERS_MAP = [];
-
     /**
      * Register services.
      */
@@ -26,6 +24,8 @@ class CommandBusProvider extends ServiceProvider
         /** @var CommandBusInterface $commandBus */
         $commandBus = app(CommandBusInterface::class);
 
-        $commandBus->register(self::COMMAND_HANDLERS_MAP);
+        $commandBus->register(
+            []
+        );
     }
 }
