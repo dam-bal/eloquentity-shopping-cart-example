@@ -2,7 +2,6 @@
 
 namespace Core\ShoppingCart\Domain;
 
-use Core\Shared\Domain\IdInterface;
 use RuntimeException;
 
 readonly class OrderService
@@ -10,15 +9,18 @@ readonly class OrderService
     public function __construct(
         private CartRepository $cartRepository,
         private OrderRepository $orderRepository,
-        private IdInterface $idProvider
     ) {
     }
 
     /**
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function createOrderFromCart(string $cartId, Shipment $shipment, PaymentMethod $paymentMethod): Order
-    {
+    public function createOrderFromCart(
+        string $orderId,
+        string $cartId,
+        Shipment $shipment,
+        PaymentMethod $paymentMethod
+    ): Order {
         $cart = $this->cartRepository->get($cartId);
 
         if ($cart->isCompleted()) {
@@ -29,7 +31,7 @@ readonly class OrderService
             throw new RuntimeException();
         }
 
-        $order = Order::createFromCart($this->idProvider->getId(), $cart, $shipment, $paymentMethod);
+        $order = Order::createFromCart($orderId, $cart, $shipment, $paymentMethod);
 
         $this->orderRepository->store($order);
 

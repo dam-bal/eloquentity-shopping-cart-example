@@ -2,10 +2,10 @@
 
 namespace Core\Shared\Infrastructure;
 
-use Core\Shared\Domain\IdInterface;
+use Core\Shared\Application\IdProvider;
 use Ramsey\Uuid\Uuid;
 
-final class RamseyUuid implements IdInterface
+final class RamseyUuid implements IdProvider
 {
     public function getId(): string
     {

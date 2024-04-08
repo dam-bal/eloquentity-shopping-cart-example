@@ -5,7 +5,7 @@ namespace Core\ShoppingCart\Application;
 use Core\ShoppingCart\Domain\CartItem;
 use JsonSerializable;
 
-readonly final class CartItemDto implements JsonSerializable
+final readonly class CartItemDto implements JsonSerializable
 {
     public function __construct(
         public string $productId,

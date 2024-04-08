@@ -5,7 +5,7 @@ namespace Core\ShoppingCart\Application;
 use Core\ShoppingCart\Domain\OrderLine;
 use JsonSerializable;
 
-readonly final class OrderLineDto implements JsonSerializable
+final readonly class OrderLineDto implements JsonSerializable
 {
     public function __construct(
         public string $name,

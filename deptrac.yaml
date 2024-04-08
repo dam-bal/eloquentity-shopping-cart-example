@@ -26,8 +26,10 @@ deptrac:
       - Infrastructure
     Application:
       - Domain
+      - Application
     Domain:
       - Domain
     Infrastructure:
       - Framework
       - Domain
+      - Application
