@@ -8,7 +8,7 @@ use Core\ShoppingCart\Domain\Shipment;
 use DateTime;
 use JsonSerializable;
 
-readonly final class OrderDto implements JsonSerializable
+final readonly class OrderDto implements JsonSerializable
 {
     /**
      * @param OrderLineDto[] $lines

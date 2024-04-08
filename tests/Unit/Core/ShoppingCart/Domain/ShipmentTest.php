@@ -56,7 +56,7 @@ class ShipmentTest extends TestCase
         );
     }
 
-    public function test_valid()
+    public function test_valid(): void
     {
         $sut = new Shipment(
             'city',

@@ -6,7 +6,7 @@ use Core\ShoppingCart\Domain\Cart;
 use Core\ShoppingCart\Domain\CartItem;
 use JsonSerializable;
 
-readonly final class CartDto implements JsonSerializable
+final readonly class CartDto implements JsonSerializable
 {
     /**
      * @param CartItemDto[] $items
