@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartCheckoutRequest;
 use App\Models\Cart;
-use Core\ShoppingCart\Domain\CartRepository;
+use Core\Shared\Application\CommandBusInterface;
+use Core\Shared\Domain\IdInterface;
+use Core\ShoppingCart\Application\AddProductToCartCommand;
+use Core\ShoppingCart\Application\CreateCartForCustomerCommand;
+use Core\ShoppingCart\Application\RemoveProductFromCart;
 use Core\ShoppingCart\Application\CartService as ApplicationCartService;
 use Core\ShoppingCart\Domain\OrderService;
-use Core\ShoppingCart\Domain\ProductRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,10 +18,10 @@ use Illuminate\Http\Response;
 class CartController extends Controller
 {
     public function __construct(
-        private readonly CartRepository $cartRepository,
-        private readonly ProductRepository $productRepository,
         private readonly OrderService $orderService,
-        private readonly ApplicationCartService $applicationCartService
+        private readonly ApplicationCartService $applicationCartService,
+        private readonly CommandBusInterface $commandBus,
+        private readonly IdInterface $idProvider
     ) {
     }
 
@@ -28,11 +31,13 @@ class CartController extends Controller
             abort(403);
         }
 
-        $cartEntity = $this->applicationCartService->createCart($request->user()->customer->id);
+        $cartId = $this->idProvider->getId();
+
+        $this->commandBus->dispatch(new CreateCartForCustomerCommand($cartId, $request->user()->customer->id));
 
         return new JsonResponse(
             [
-                'cart_id' => $cartEntity->getId(),
+                'cart_id' => $cartId,
             ],
             Response::HTTP_CREATED
         );
@@ -54,11 +59,7 @@ class CartController extends Controller
             abort(403);
         }
 
-        $cartEntity = $this->cartRepository->get($cartId);
-
-        $productEntity = $this->productRepository->get($productId);
-
-        $cartEntity->addProduct($productEntity);
+        $this->commandBus->dispatch(new AddProductToCartCommand($productId, $cartId));
 
         return new JsonResponse(null, Response::HTTP_CREATED);
     }
@@ -69,11 +70,7 @@ class CartController extends Controller
             abort(403);
         }
 
-        $cartEntity = $this->cartRepository->get($cartId);
-
-        $productEntity = $this->productRepository->get($productId);
-
-        $cartEntity->removeProduct($productEntity);
+        $this->commandBus->dispatch(new RemoveProductFromCart($productId, $cartId));
 
         return new JsonResponse(null);
     }
