@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use Core\ShoppingCart\Application\OrderDto;
-use Core\ShoppingCart\Domain\OrderRepository;
+use Core\ShoppingCart\Application\OrderService as ApplicationOrderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function __construct(private readonly OrderRepository $orderRepository)
+    public function __construct(private readonly ApplicationOrderService $orderService)
     {
     }
 
@@ -20,10 +19,6 @@ class OrderController extends Controller
             abort(403);
         }
 
-        return new JsonResponse(
-            OrderDto::createFromOrderDomainObject(
-                $this->orderRepository->get($orderId)
-            )
-        );
+        return new JsonResponse($this->orderService->getOrderDto($orderId));
     }
 }

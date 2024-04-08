@@ -10,7 +10,7 @@ readonly final class OrderLineDto implements JsonSerializable
     public function __construct(
         public string $name,
         public string $sku,
-        public int $unitPrice,
+        public float $unitPrice,
         public int $quantity,
         public float $price
     ) {

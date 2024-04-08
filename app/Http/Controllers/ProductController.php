@@ -12,8 +12,8 @@ class ProductController extends Controller
     {
         return new JsonResponse(
             Product::query()->paginate(
-                perPage: $request->query('per_page', 20),
-                page: $request->query('page', 1)
+                perPage: (int)$request->query('per_page', '20'),
+                page: (int)$request->query('page', '1')
             )
         );
     }

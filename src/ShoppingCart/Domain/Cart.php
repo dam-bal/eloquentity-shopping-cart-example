@@ -2,6 +2,8 @@
 
 namespace Core\ShoppingCart\Domain;
 
+use Core\Shared\Domain\Entity;
+
 class Cart extends Entity
 {
     /** @var CartItem[] */

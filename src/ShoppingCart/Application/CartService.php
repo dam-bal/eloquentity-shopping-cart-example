@@ -1,8 +1,10 @@
 <?php
 
-namespace Core\ShoppingCart\Domain;
+namespace Core\ShoppingCart\Application;
 
 use Core\Shared\Domain\IdInterface;
+use Core\ShoppingCart\Domain\Cart;
+use Core\ShoppingCart\Domain\CartRepository;
 
 readonly class CartService
 {
@@ -19,5 +21,13 @@ readonly class CartService
         $this->cartRepository->store($cart);
 
         return $cart;
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function getCartDto(string $cartId): CartDto
+    {
+        return CartDto::createFromCartDomainObject($this->cartRepository->get($cartId));
     }
 }

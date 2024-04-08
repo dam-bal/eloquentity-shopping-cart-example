@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\Core\ShoppingCart\Domain;
+namespace Tests\Unit\Core\ShoppingCart\Application;
 
 use Core\Shared\Domain\IdInterface;
+use Core\ShoppingCart\Application\CartService;
 use Core\ShoppingCart\Domain\Cart;
 use Core\ShoppingCart\Domain\CartRepository;
-use Core\ShoppingCart\Domain\CartService;
 use Illuminate\Foundation\Testing\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
