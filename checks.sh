@@ -6,11 +6,11 @@ run_command() {
 
     if [ $? -eq 0 ]; then
         echo -e "\e[32mSUCCESS\e[0m"
-        rm "$temp_file"  # Clean up the temporary file on success
+        rm "$temp_file"
     else
         echo -e "\e[31mFAIL\e[0m"
-        cat "$temp_file"  # Display the output on failure
-        rm "$temp_file"  # Clean up the temporary file
+        cat "$temp_file"
+        rm "$temp_file"
     fi
 }
 
