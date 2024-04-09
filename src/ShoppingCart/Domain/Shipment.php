@@ -4,13 +4,13 @@ namespace Core\ShoppingCart\Domain;
 
 use InvalidArgumentException;
 
-readonly class Shipment
+class Shipment
 {
     public function __construct(
-        public string $city,
-        public string $streetName,
-        public string $streetNumber,
-        public string $receiverFullName
+        public readonly string $city,
+        public readonly string $streetName,
+        public readonly string $streetNumber,
+        public readonly string $receiverFullName
     ) {
         if (empty($this->city)) {
             throw new InvalidArgumentException("city is required");

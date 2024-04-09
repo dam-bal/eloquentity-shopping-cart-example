@@ -13,7 +13,7 @@ readonly class RemoveProductFromCartCommandHandler
     ) {
     }
 
-    public function __invoke(RemoveProductFromCart $command): void
+    public function __invoke(RemoveProductFromCartCommand $command): void
     {
         $product = $this->productRepository->get($command->productId);
         $cart = $this->cartRepository->get($command->cartId);

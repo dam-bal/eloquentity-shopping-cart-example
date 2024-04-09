@@ -4,11 +4,11 @@ namespace Core\ShoppingCart\Domain;
 
 use RuntimeException;
 
-readonly class OrderService
+class OrderService
 {
     public function __construct(
-        private CartRepository $cartRepository,
-        private OrderRepository $orderRepository,
+        private readonly CartRepository $cartRepository,
+        private readonly OrderRepository $orderRepository,
     ) {
     }
 
@@ -24,11 +24,11 @@ readonly class OrderService
         $cart = $this->cartRepository->get($cartId);
 
         if ($cart->isCompleted()) {
-            throw new RuntimeException();
+            throw new RuntimeException('Cart already completed.');
         }
 
         if (empty($cart->getItems())) {
-            throw new RuntimeException();
+            throw new RuntimeException('Cart is empty.');
         }
 
         $order = Order::createFromCart($orderId, $cart, $shipment, $paymentMethod);
