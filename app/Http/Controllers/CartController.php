@@ -11,7 +11,7 @@ use Core\ShoppingCart\Application\AddProductToCartCommand;
 use Core\ShoppingCart\Application\CreateCartForCustomerCommand;
 use Core\ShoppingCart\Application\CreateOrderFromCartCommand;
 use Core\ShoppingCart\Application\GetCartQuery;
-use Core\ShoppingCart\Application\RemoveProductFromCart;
+use Core\ShoppingCart\Application\RemoveProductFromCartCommand;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -70,7 +70,7 @@ class CartController extends Controller
             abort(403);
         }
 
-        $this->commandBus->dispatch(new RemoveProductFromCart($productId, $cartId));
+        $this->commandBus->dispatch(new RemoveProductFromCartCommand($productId, $cartId));
 
         return new JsonResponse(null);
     }

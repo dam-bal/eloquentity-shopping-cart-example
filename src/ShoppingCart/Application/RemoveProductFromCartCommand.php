@@ -4,7 +4,7 @@ namespace Core\ShoppingCart\Application;
 
 use Core\Shared\Application\Command;
 
-final readonly class RemoveProductFromCart implements Command
+final readonly class RemoveProductFromCartCommand implements Command
 {
     public function __construct(
         public string $productId,

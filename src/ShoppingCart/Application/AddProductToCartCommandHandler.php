@@ -5,7 +5,7 @@ namespace Core\ShoppingCart\Application;
 use Core\ShoppingCart\Domain\CartRepository;
 use Core\ShoppingCart\Domain\ProductRepository;
 
-readonly class AddProductToCartCommandHandler
+final readonly class AddProductToCartCommandHandler
 {
     public function __construct(
         private CartRepository $cartRepository,

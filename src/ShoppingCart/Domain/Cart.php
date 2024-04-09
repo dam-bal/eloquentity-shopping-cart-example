@@ -44,6 +44,11 @@ class Cart extends Entity
         $this->getItem($product)?->decrease();
     }
 
+    public function isEmpty(): bool
+    {
+        return empty($this->items);
+    }
+
     private function getItem(Product $product): ?CartItem
     {
         foreach ($this->items as $item) {

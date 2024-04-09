@@ -10,7 +10,7 @@ use Core\ShoppingCart\Application\CreateCartForCustomerCommand;
 use Core\ShoppingCart\Application\CreateCartForCustomerCommandHandler;
 use Core\ShoppingCart\Application\CreateOrderFromCartCommand;
 use Core\ShoppingCart\Application\CreateOrderFromCartCommandHandler;
-use Core\ShoppingCart\Application\RemoveProductFromCart;
+use Core\ShoppingCart\Application\RemoveProductFromCartCommand;
 use Core\ShoppingCart\Application\RemoveProductFromCartCommandHandler;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,7 +35,7 @@ class CommandBusProvider extends ServiceProvider
         $commandBus->register(
             [
                 AddProductToCartCommand::class => AddProductToCartCommandHandler::class,
-                RemoveProductFromCart::class => RemoveProductFromCartCommandHandler::class,
+                RemoveProductFromCartCommand::class => RemoveProductFromCartCommandHandler::class,
                 CreateCartForCustomerCommand::class => CreateCartForCustomerCommandHandler::class,
                 CreateOrderFromCartCommand::class => CreateOrderFromCartCommandHandler::class,
             ]

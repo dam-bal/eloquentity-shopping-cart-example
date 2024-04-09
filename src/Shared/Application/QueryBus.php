@@ -6,10 +6,10 @@ interface QueryBus
 {
     /**
      * @template T of mixed
-     * @param Query<T> $message
+     * @param Query<T> $query
      * @return T
      */
-    public function query(Query $message);
+    public function query(Query $query);
 
     /**
      * @param array<class-string, class-string> $map
