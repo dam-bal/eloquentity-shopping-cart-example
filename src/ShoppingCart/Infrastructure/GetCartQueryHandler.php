@@ -9,10 +9,13 @@ use Core\ShoppingCart\Domain\CartRepository;
 readonly class GetCartQueryHandler
 {
     public function __construct(
-      private CartRepository $cartRepository
+        private CartRepository $cartRepository
     ) {
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function __invoke(GetCartQuery $query): CartDto
     {
         return CartDto::createFromCartDomainObject($this->cartRepository->get($query->cartId));
