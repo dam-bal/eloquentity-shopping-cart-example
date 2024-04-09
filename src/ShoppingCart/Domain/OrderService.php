@@ -7,36 +7,49 @@ use RuntimeException;
 class OrderService
 {
     public function __construct(
-        private readonly CartRepository $cartRepository,
         private readonly OrderRepository $orderRepository,
     ) {
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     */
     public function createOrderFromCart(
         string $orderId,
-        string $cartId,
+        Cart $cart,
         Shipment $shipment,
         PaymentMethod $paymentMethod
-    ): Order {
-        $cart = $this->cartRepository->get($cartId);
-
+    ): void {
         if ($cart->isCompleted()) {
-            throw new RuntimeException('Cart already completed.');
+            throw new RuntimeException("Cart already completed");
         }
 
-        if (empty($cart->getItems())) {
-            throw new RuntimeException('Cart is empty.');
+        if ($cart->isEmpty()) {
+            throw new RuntimeException("Cart is empty");
         }
 
-        $order = Order::createFromCart($orderId, $cart, $shipment, $paymentMethod);
+        $orderLines = [];
+
+        foreach ($cart->getItems() as $item) {
+            if (!$item->getQuantity()) {
+                continue;
+            }
+
+            $orderLines[] = new OrderLine(
+                $item->getProduct()->name,
+                $item->getProduct()->sku,
+                $item->getProduct()->price,
+                $item->getQuantity()
+            );
+        }
+
+        $order = new Order(
+            $orderId,
+            $cart->customerId,
+            $shipment,
+            $paymentMethod,
+            $orderLines
+        );
 
         $this->orderRepository->store($order);
 
         $cart->markAsCompleted();
-
-        return $order;
     }
 }

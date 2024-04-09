@@ -2,10 +2,8 @@
 
 namespace Core\ShoppingCart\Domain;
 
-use Carbon\Carbon;
 use Core\Shared\Domain\Entity;
 use DateTime;
-use RuntimeException;
 
 class Order extends Entity
 {
@@ -59,44 +57,6 @@ class Order extends Entity
             $this->lines,
             static fn(float $carry, OrderLine $line): float => $carry + $line->getTotalPrice(),
             0.0
-        );
-    }
-
-    /**
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     */
-    public static function createFromCart(
-        string $id,
-        Cart $cart,
-        Shipment $shipment,
-        PaymentMethod $paymentMethod
-    ): Order {
-        $orderLines = [];
-
-        foreach ($cart->getItems() as $item) {
-            if (!$item->getQuantity()) {
-                continue;
-            }
-
-            $orderLines[] = new OrderLine(
-                $item->getProduct()->name,
-                $item->getProduct()->sku,
-                $item->getProduct()->price,
-                $item->getQuantity()
-            );
-        }
-
-        if (empty($orderLines)) {
-            throw new RuntimeException("Can't create order that has no order lines!");
-        }
-
-        return new Order(
-            $id,
-            $cart->customerId,
-            $shipment,
-            $paymentMethod,
-            $orderLines,
-            Carbon::now()
         );
     }
 }
