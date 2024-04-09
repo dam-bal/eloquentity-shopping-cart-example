@@ -2,17 +2,17 @@
 
 namespace Core\Shared\Infrastructure;
 
-use Core\Shared\Application\CommandBusInterface;
-use Core\Shared\Application\CommandInterface;
+use Core\Shared\Application\CommandBus;
+use Core\Shared\Application\Command;
 use Illuminate\Bus\Dispatcher;
 
-final readonly class IlluminateSyncCommandBus implements CommandBusInterface
+final readonly class IlluminateSyncCommandBus implements CommandBus
 {
     public function __construct(private Dispatcher $dispatcher)
     {
     }
 
-    public function dispatch(CommandInterface $command): void
+    public function dispatch(Command $command): void
     {
         $this->dispatcher->dispatchNow($command);
     }

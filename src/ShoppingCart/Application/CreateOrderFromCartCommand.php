@@ -2,11 +2,11 @@
 
 namespace Core\ShoppingCart\Application;
 
-use Core\Shared\Application\CommandInterface;
+use Core\Shared\Application\Command;
 use Core\ShoppingCart\Domain\PaymentMethod;
 use Core\ShoppingCart\Domain\Shipment;
 
-readonly class CreateOrderFromCartCommand implements CommandInterface
+readonly class CreateOrderFromCartCommand implements Command
 {
     public function __construct(
         public string $orderId,

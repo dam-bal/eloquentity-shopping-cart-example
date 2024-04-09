@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Core\Shared\Application\CommandBusInterface;
+use Core\Shared\Application\CommandBus;
 use Core\Shared\Infrastructure\IlluminateSyncCommandBus;
 use Core\ShoppingCart\Application\AddProductToCartCommand;
 use Core\ShoppingCart\Application\AddProductToCartCommandHandler;
@@ -21,7 +21,7 @@ class CommandBusProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->scoped(CommandBusInterface::class, IlluminateSyncCommandBus::class);
+        $this->app->scoped(CommandBus::class, IlluminateSyncCommandBus::class);
     }
 
     /**
@@ -29,8 +29,8 @@ class CommandBusProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        /** @var CommandBusInterface $commandBus */
-        $commandBus = app(CommandBusInterface::class);
+        /** @var CommandBus $commandBus */
+        $commandBus = app(CommandBus::class);
 
         $commandBus->register(
             [

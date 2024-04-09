@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartCheckoutRequest;
 use App\Models\Cart;
-use Core\Shared\Application\CommandBusInterface;
+use Core\Shared\Application\CommandBus;
 use Core\Shared\Application\IdProvider;
 use Core\ShoppingCart\Application\AddProductToCartCommand;
 use Core\ShoppingCart\Application\CartService as ApplicationCartService;
@@ -19,7 +19,7 @@ class CartController extends Controller
 {
     public function __construct(
         private readonly ApplicationCartService $applicationCartService,
-        private readonly CommandBusInterface $commandBus,
+        private readonly CommandBus $commandBus,
         private readonly IdProvider $idProvider
     ) {
     }
