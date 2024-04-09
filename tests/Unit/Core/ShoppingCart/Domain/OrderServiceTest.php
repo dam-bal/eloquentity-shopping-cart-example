@@ -16,16 +16,11 @@ use RuntimeException;
 
 class OrderServiceTest extends TestCase
 {
-    /** @var OrderRepository|MockObject */
-    private $orderRepositoryMock;
-
     private OrderService $sut;
 
     protected function setUp(): void
     {
-        $this->orderRepositoryMock = $this->createMock(OrderRepository::class);
-
-        $this->sut = new OrderService($this->orderRepositoryMock);
+        $this->sut = new OrderService();
     }
 
     public function testCreateOrderFromCartThrowsExceptionWhenCartIsCompleted(): void
@@ -74,6 +69,18 @@ class OrderServiceTest extends TestCase
 
         $cart->addProduct(new Product('productId', 'Product', 'PRODUCT-1', 100));
 
+        $order = $this->sut->createOrderFromCart(
+            'orderId',
+            $cart,
+            new Shipment(
+                'city',
+                'streetName',
+                'streetNumber',
+                'Full Name'
+            ),
+            PaymentMethod::CARD
+        );
+
         $expectedOrder = new Order(
             'orderId',
             'customerId',
@@ -91,51 +98,10 @@ class OrderServiceTest extends TestCase
                     100,
                     1
                 )
-            ]
+            ],
+            $order->getPlacedDate()
         );
 
-        $this->orderRepositoryMock
-            ->expects($this->once())
-            ->method('store')
-            ->with(
-                $this->callback(function (Order $order): bool {
-                    $placedDate = $order->getPlacedDate();
-
-                    $expectedOrder = new Order(
-                        'orderId',
-                        'customerId',
-                        new Shipment(
-                            'city',
-                            'streetName',
-                            'streetNumber',
-                            'Full Name'
-                        ),
-                        PaymentMethod::CARD,
-                        [
-                            new OrderLine(
-                                'Product',
-                                'PRODUCT-1',
-                                100,
-                                1
-                            )
-                        ],
-                        $placedDate
-                    );
-
-                    return $expectedOrder == $order;
-                })
-            );
-
-        $this->sut->createOrderFromCart(
-            'orderId',
-            $cart,
-            new Shipment(
-                'city',
-                'streetName',
-                'streetNumber',
-                'Full Name'
-            ),
-            PaymentMethod::CARD
-        );
+        $this->assertEquals($expectedOrder, $order);
     }
 }

@@ -6,17 +6,12 @@ use RuntimeException;
 
 class OrderService
 {
-    public function __construct(
-        private readonly OrderRepository $orderRepository,
-    ) {
-    }
-
     public function createOrderFromCart(
         string $orderId,
         Cart $cart,
         Shipment $shipment,
         PaymentMethod $paymentMethod
-    ): void {
+    ): Order {
         if ($cart->isCompleted()) {
             throw new RuntimeException("Cart already completed");
         }
@@ -48,8 +43,8 @@ class OrderService
             $orderLines
         );
 
-        $this->orderRepository->store($order);
-
         $cart->markAsCompleted();
+
+        return $order;
     }
 }

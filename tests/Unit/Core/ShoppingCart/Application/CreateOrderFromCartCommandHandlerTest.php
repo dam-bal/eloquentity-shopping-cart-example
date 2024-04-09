@@ -6,6 +6,8 @@ use Core\ShoppingCart\Application\CreateOrderFromCartCommand;
 use Core\ShoppingCart\Application\CreateOrderFromCartCommandHandler;
 use Core\ShoppingCart\Domain\Cart;
 use Core\ShoppingCart\Domain\CartRepository;
+use Core\ShoppingCart\Domain\Order;
+use Core\ShoppingCart\Domain\OrderRepository;
 use Core\ShoppingCart\Domain\OrderService;
 use Core\ShoppingCart\Domain\PaymentMethod;
 use Core\ShoppingCart\Domain\Shipment;
@@ -28,6 +30,8 @@ class CreateOrderFromCartCommandHandlerTest extends TestCase
 
         $shipmentMock = $this->createMock(Shipment::class);
 
+        $orderMock = $this->createMock(Order::class);
+
         $orderServiceMock
             ->expects($this->once())
             ->method('createOrderFromCart')
@@ -36,10 +40,18 @@ class CreateOrderFromCartCommandHandlerTest extends TestCase
                 $cartMock,
                 $shipmentMock,
                 PaymentMethod::CARD
-            );
+            )
+            ->willReturn($orderMock);
+
+        $orderRepositoryMock = $this->createMock(OrderRepository::class);
+
+        $orderRepositoryMock
+            ->method('store')
+            ->with($orderMock);
 
         $createOrderFromCartCommandHandler = new CreateOrderFromCartCommandHandler(
             $cartRepositoryMock,
+            $orderRepositoryMock,
             $orderServiceMock
         );
 
