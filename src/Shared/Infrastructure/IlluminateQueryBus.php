@@ -15,9 +15,9 @@ readonly class IlluminateQueryBus implements QueryBus
     /**
      * @inheritDoc
      */
-    public function query(Query $message)
+    public function query(Query $query)
     {
-        return $this->dispatcher->dispatchNow($message);
+        return $this->dispatcher->dispatchNow($query);
     }
 
     /**
