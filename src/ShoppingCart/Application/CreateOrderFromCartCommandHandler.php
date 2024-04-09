@@ -4,7 +4,7 @@ namespace Core\ShoppingCart\Application;
 
 use Core\ShoppingCart\Domain\OrderService as DomainOrderService;
 
-readonly class CreateOrderFromCartCommandHandler
+final readonly class CreateOrderFromCartCommandHandler
 {
     public function __construct(
         private DomainOrderService $orderService

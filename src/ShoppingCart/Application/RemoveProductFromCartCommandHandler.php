@@ -5,7 +5,7 @@ namespace Core\ShoppingCart\Application;
 use Core\ShoppingCart\Domain\CartRepository;
 use Core\ShoppingCart\Domain\ProductRepository;
 
-readonly class RemoveProductFromCartCommandHandler
+final readonly class RemoveProductFromCartCommandHandler
 {
     public function __construct(
         private CartRepository $cartRepository,
