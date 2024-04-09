@@ -2,9 +2,9 @@
 
 namespace Core\ShoppingCart\Application;
 
-use Core\Shared\Application\CommandInterface;
+use Core\Shared\Application\Command;
 
-final readonly class AddProductToCartCommand implements CommandInterface
+final readonly class AddProductToCartCommand implements Command
 {
     public function __construct(
         public string $productId,

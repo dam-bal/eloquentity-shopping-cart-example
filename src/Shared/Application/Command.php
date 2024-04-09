@@ -2,6 +2,6 @@
 
 namespace Core\Shared\Application;
 
-interface CommandInterface
+interface Command
 {
 }

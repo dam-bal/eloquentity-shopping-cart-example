@@ -2,9 +2,9 @@
 
 namespace Core\Shared\Application;
 
-interface CommandBusInterface
+interface CommandBus
 {
-    public function dispatch(CommandInterface $command): void;
+    public function dispatch(Command $command): void;
 
     /**
      * @param array<class-string, class-string> $map

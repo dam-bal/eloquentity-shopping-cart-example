@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartCheckoutRequest;
 use App\Models\Cart;
-use Core\Shared\Application\CommandBusInterface;
+use Core\Shared\Application\CommandBus;
 use Core\Shared\Application\IdProvider;
+use Core\Shared\Application\QueryBus;
 use Core\ShoppingCart\Application\AddProductToCartCommand;
-use Core\ShoppingCart\Application\CartService as ApplicationCartService;
 use Core\ShoppingCart\Application\CreateCartForCustomerCommand;
 use Core\ShoppingCart\Application\CreateOrderFromCartCommand;
+use Core\ShoppingCart\Application\GetCartQuery;
 use Core\ShoppingCart\Application\RemoveProductFromCart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,8 +19,8 @@ use Illuminate\Http\Response;
 class CartController extends Controller
 {
     public function __construct(
-        private readonly ApplicationCartService $applicationCartService,
-        private readonly CommandBusInterface $commandBus,
+        private readonly CommandBus $commandBus,
+        private readonly QueryBus $queryBus,
         private readonly IdProvider $idProvider
     ) {
     }
@@ -49,7 +50,7 @@ class CartController extends Controller
             abort(403);
         }
 
-        return new JsonResponse($this->applicationCartService->getCartDto($cartId));
+        return new JsonResponse($this->queryBus->query(new GetCartQuery($cartId)));
     }
 
     public function addProduct(string $cartId, string $productId, Request $request): JsonResponse
