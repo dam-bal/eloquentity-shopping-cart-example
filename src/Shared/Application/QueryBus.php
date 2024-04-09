@@ -9,7 +9,7 @@ interface QueryBus
      * @param Query<T> $message
      * @return T
      */
-    public function handle(Query $message): object;
+    public function query(Query $message): object;
 
     /**
      * @param array<class-string, class-string> $map
