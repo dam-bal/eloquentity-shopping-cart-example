@@ -7,16 +7,15 @@ use App\Models\CartItem;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class AppSeeder extends Seeder
 {
-    public const CUSTOMER_ID = '9c5394f7-8322-44c9-807c-9de75417da74';
-    public const CART_ID = 'a1a5dc2a-e236-4e2d-863f-2562906bf206';
-    public const PRODUCT_ID = '2e95b370-a936-4787-a634-c8fea1894357';
-    public const USER_ID = 1;
+    public const string CUSTOMER_ID = '9c5394f7-8322-44c9-807c-9de75417da74';
+    public const string CART_ID = 'a1a5dc2a-e236-4e2d-863f-2562906bf206';
+    public const string PRODUCT_ID = '2e95b370-a936-4787-a634-c8fea1894357';
+    public const int USER_ID = 1;
 
     /**
      * Run the database seeds.
