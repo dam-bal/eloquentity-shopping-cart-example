@@ -23,7 +23,7 @@ class CartTest extends TestCase
         );
     }
 
-    public function testAddProductAddsAnotherProduct(): void
+    public function testAddingSameProductIncreasesQuantity(): void
     {
         $cart = new Cart('cart-id', 'customer-id');
 
@@ -38,13 +38,30 @@ class CartTest extends TestCase
         );
     }
 
-    public function testRemoveProductRemovesProduct(): void
+    public function testRemoveProductDecreasesQuantity(): void
     {
         $cart = new Cart('cart-id', 'customer-id');
 
         $product = new Product('product-id', 'Product', 'Sku', 15.0);
         $cart->addProduct($product);
 
+        $cart->removeProduct($product);
+
+        self::assertEquals(
+            [new CartItem($product, 0)],
+            $cart->getItems()
+        );
+    }
+
+
+    public function testRemoveDoesNotDecreaseQuantityBelowZero(): void
+    {
+        $cart = new Cart('cart-id', 'customer-id');
+
+        $product = new Product('product-id', 'Product', 'Sku', 15.0);
+        $cart->addProduct($product);
+
+        $cart->removeProduct($product);
         $cart->removeProduct($product);
 
         self::assertEquals(
