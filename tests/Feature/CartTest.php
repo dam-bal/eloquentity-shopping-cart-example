@@ -16,7 +16,7 @@ class CartTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_creates_cart(): void
+    public function testCreatesCart(): void
     {
         $this->seed(AppSeeder::class);
 
@@ -45,7 +45,7 @@ class CartTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function test_returns_cart(): void
+    public function testReturnsCart(): void
     {
         $this->seed(AppSeeder::class);
 
@@ -68,7 +68,7 @@ class CartTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_adding_product_to_cart(): void
+    public function testAddingProductToCart(): void
     {
         $this->seed(AppSeeder::class);
 
@@ -88,7 +88,7 @@ class CartTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function test_removing_product_from_cart(): void
+    public function testRemovingProductFromCart(): void
     {
         $this->seed(AppSeeder::class);
 
@@ -108,7 +108,7 @@ class CartTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_checkout(): void
+    public function testCheckout(): void
     {
         $this->seed(AppSeeder::class);
 

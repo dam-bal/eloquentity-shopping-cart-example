@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CartTest extends TestCase
 {
-    public function test_add_product_adds_product(): void
+    public function testAddProductAddsProduct(): void
     {
         $cart = new Cart('cart-id', 'customer-id');
 
@@ -23,7 +23,7 @@ class CartTest extends TestCase
         );
     }
 
-    public function test_add_product_adds_another_product(): void
+    public function testAddProductAddsAnotherProduct(): void
     {
         $cart = new Cart('cart-id', 'customer-id');
 
@@ -38,7 +38,7 @@ class CartTest extends TestCase
         );
     }
 
-    public function test_remove_product_removes_product(): void
+    public function testRemoveProductRemovesProduct(): void
     {
         $cart = new Cart('cart-id', 'customer-id');
 
