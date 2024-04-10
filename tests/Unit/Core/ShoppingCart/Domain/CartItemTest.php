@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CartItemTest extends TestCase
 {
-    public function test_increase_increases_quantity(): void
+    public function testIncreaseIncreasesQuantity(): void
     {
         $cartItem = new CartItem($this->getProduct());
 
@@ -17,7 +17,7 @@ class CartItemTest extends TestCase
         self::assertEquals(2, $cartItem->getQuantity());
     }
 
-    public function test_decrease_decreases_quantity(): void
+    public function testDecreaseDecreasesQuantity(): void
     {
         $cartItem = new CartItem($this->getProduct());
 
@@ -26,7 +26,7 @@ class CartItemTest extends TestCase
         self::assertEquals(0, $cartItem->getQuantity());
     }
 
-    public function test_decrease_does_not_decrease_below_zero(): void
+    public function testDecreaseDoesNotDecreaseBelowZero(): void
     {
         $cartItem = new CartItem($this->getProduct(), 0);
 

@@ -5,12 +5,10 @@ namespace Tests\Unit\Core\ShoppingCart\Domain;
 use Core\ShoppingCart\Domain\Cart;
 use Core\ShoppingCart\Domain\Order;
 use Core\ShoppingCart\Domain\OrderLine;
-use Core\ShoppingCart\Domain\OrderRepository;
 use Core\ShoppingCart\Domain\OrderService;
 use Core\ShoppingCart\Domain\PaymentMethod;
 use Core\ShoppingCart\Domain\Product;
 use Core\ShoppingCart\Domain\Shipment;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 

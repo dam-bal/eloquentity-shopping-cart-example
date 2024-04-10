@@ -13,7 +13,7 @@ class CustomerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_create_customer(): void
+    public function testCreateCustomer(): void
     {
         $this->seed(AppSeeder::class);
 
@@ -57,7 +57,7 @@ class CustomerTest extends TestCase
         );
     }
 
-    public function test_auth(): void
+    public function testAuth(): void
     {
         $this->seed(AppSeeder::class);
 
@@ -76,7 +76,7 @@ class CustomerTest extends TestCase
         );
     }
 
-    public function test_view_customer(): void
+    public function testViewCustomer(): void
     {
         $this->seed(AppSeeder::class);
 

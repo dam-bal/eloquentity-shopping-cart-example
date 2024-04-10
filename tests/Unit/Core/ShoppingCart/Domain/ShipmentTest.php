@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ShipmentTest extends TestCase
 {
-    public function test_it_throws_exception_when_city_is_empty(): void
+    public function testItThrowsExceptionWhenCityIsEmpty(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -20,7 +20,7 @@ class ShipmentTest extends TestCase
         );
     }
 
-    public function test_it_throws_exception_when_streetName_is_empty(): void
+    public function testItThrowsExceptionWhenStreetNameIsEmpty(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -32,7 +32,7 @@ class ShipmentTest extends TestCase
         );
     }
 
-    public function test_it_throws_exception_when_streetNumber_is_empty(): void
+    public function testItThrowsExceptionWhenStreetNumberIsEmpty(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -44,7 +44,7 @@ class ShipmentTest extends TestCase
         );
     }
 
-    public function test_it_throws_exception_when_receiverFullName_has_one_name(): void
+    public function testItThrowsExceptionWhenReceiverFullNameHasOneName(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -56,7 +56,7 @@ class ShipmentTest extends TestCase
         );
     }
 
-    public function test_valid(): void
+    public function testValid(): void
     {
         $sut = new Shipment(
             'city',
