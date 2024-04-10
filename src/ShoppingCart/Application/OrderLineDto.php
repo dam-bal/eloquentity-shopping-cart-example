@@ -3,9 +3,8 @@
 namespace Core\ShoppingCart\Application;
 
 use Core\ShoppingCart\Domain\OrderLine;
-use JsonSerializable;
 
-final readonly class OrderLineDto implements JsonSerializable
+final readonly class OrderLineDto
 {
     public function __construct(
         public string $name,
@@ -25,16 +24,5 @@ final readonly class OrderLineDto implements JsonSerializable
             $orderLine->quantity,
             $orderLine->getTotalPrice()
         );
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'name' => $this->name,
-            'sku' => $this->sku,
-            'unit_price' => $this->unitPrice,
-            'quantity' => $this->quantity,
-            'price' => $this->price,
-        ];
     }
 }

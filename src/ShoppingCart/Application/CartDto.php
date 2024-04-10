@@ -4,9 +4,8 @@ namespace Core\ShoppingCart\Application;
 
 use Core\ShoppingCart\Domain\Cart;
 use Core\ShoppingCart\Domain\CartItem;
-use JsonSerializable;
 
-final readonly class CartDto implements JsonSerializable
+final readonly class CartDto
 {
     /**
      * @param CartItemDto[] $items
@@ -29,13 +28,5 @@ final readonly class CartDto implements JsonSerializable
                 $cart->getItems()
             )
         );
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'customer_id' => $this->customerId,
-            'items' => $this->items
-        ];
     }
 }
