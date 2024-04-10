@@ -6,9 +6,8 @@ use Core\ShoppingCart\Domain\Order;
 use Core\ShoppingCart\Domain\OrderLine;
 use Core\ShoppingCart\Domain\Shipment;
 use DateTime;
-use JsonSerializable;
 
-final readonly class OrderDto implements JsonSerializable
+final readonly class OrderDto
 {
     /**
      * @param OrderLineDto[] $lines
@@ -41,23 +40,5 @@ final readonly class OrderDto implements JsonSerializable
             ),
             $order->getPlacedDate()
         );
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'status' => $this->status,
-            'lines' => $this->lines,
-            'customer_id' => $this->customerId,
-            'price' => $this->price,
-            'shipment' => [
-                'city' => $this->shipment->city,
-                'street_name' => $this->shipment->streetName,
-                'street_number' => $this->shipment->streetNumber,
-                'receiver_full_name' => $this->shipment->receiverFullName,
-            ],
-            'payment_method' => $this->paymentMethod,
-            'placed_date' => $this->placedDate->format('Y-m-d H:i:s'),
-        ];
     }
 }

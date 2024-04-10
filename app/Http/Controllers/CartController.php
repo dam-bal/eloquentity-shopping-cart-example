@@ -15,13 +15,15 @@ use Core\ShoppingCart\Application\RemoveProductFromCartCommand;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\Serializer\Serializer;
 
 class CartController extends Controller
 {
     public function __construct(
         private readonly CommandBus $commandBus,
         private readonly QueryBus $queryBus,
-        private readonly IdProvider $idProvider
+        private readonly IdProvider $idProvider,
+        private readonly Serializer $serializer
     ) {
     }
 
@@ -50,7 +52,11 @@ class CartController extends Controller
             abort(403);
         }
 
-        return new JsonResponse($this->queryBus->query(new GetCartQuery($cartId)));
+        return new JsonResponse(
+            $this->serializer->normalize(
+                $this->queryBus->query(new GetCartQuery($cartId))
+            )
+        );
     }
 
     public function addProduct(string $cartId, string $productId, Request $request): JsonResponse

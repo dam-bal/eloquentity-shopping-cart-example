@@ -7,11 +7,13 @@ use Core\Shared\Application\QueryBus;
 use Core\ShoppingCart\Application\GetOrderQuery;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\Serializer\Serializer;
 
 class OrderController extends Controller
 {
     public function __construct(
-        private readonly QueryBus $queryBus
+        private readonly QueryBus $queryBus,
+        private readonly Serializer $serializer
     ) {
     }
 
@@ -21,6 +23,10 @@ class OrderController extends Controller
             abort(403);
         }
 
-        return new JsonResponse($this->queryBus->query(new GetOrderQuery($orderId)));
+        return new JsonResponse(
+            $this->serializer->normalize(
+                $this->queryBus->query(new GetOrderQuery($orderId))
+            )
+        );
     }
 }
