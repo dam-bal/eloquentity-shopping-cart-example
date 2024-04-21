@@ -1,6 +1,6 @@
 # Eloquentity Shopping Cart Example
 
-This project is to show how [Eloquentity](https://github.com/dam-bal/eloquentity) can be used to achieve proper DDD/Hexagonal Architecture with Laravel
+This project demonstrates the implementation of Domain-Driven Design (DDD), Hexagonal Architecture, and Command Query Responsibility Segregation (CQRS) principles using [Eloquentity](https://github.com/dam-bal/eloquentity) with Laravel. It serves as a practical example of how to achieve a modular, maintainable, and scalable application architecture by separating concerns and adhering to best practices.
 
 ## Getting started
 
