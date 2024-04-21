@@ -121,7 +121,7 @@ class CartTest extends TestCase
                     'city' => 'City',
                     'street_name' => 'Street',
                     'street_number' => '1',
-                    'full_name' => 'Test Test'
+                    'receiver_full_name' => 'Test Test'
                 ],
                 'payment_method' => 'card',
             ]

@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Core\ShoppingCart\Domain\Customer;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class StoreCustomerRequest extends FormRequest
+class StoreCustomerRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,10 +27,5 @@ class StoreCustomerRequest extends FormRequest
             'email' => 'required|unique:users|email',
             'password' => ['required', Password::min(6)->numbers()->letters()->mixedCase()->symbols()]
         ];
-    }
-
-    public function customer(): Customer
-    {
-        return new Customer($this->input('first_name'), $this->input('last_name'));
     }
 }

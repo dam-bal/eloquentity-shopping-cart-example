@@ -16,17 +16,20 @@ class CustomerController extends Controller
 {
     public function store(StoreCustomerRequest $request): JsonResponse
     {
+        $storeCustomerRequest = $request->mapTo(\App\Requests\StoreCustomerRequest::class);
+
         $user = new User();
-        $user->name = $request->input('first_name') . ' ' . $request->input('last_name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
+        $user->name = sprintf('%s %s', $storeCustomerRequest->firstName, $storeCustomerRequest->lastName);
+        $user->email = $storeCustomerRequest->email;
+        $user->password = $storeCustomerRequest->password;
         $user->save();
 
+
         $customer = new Customer();
-        $customer->first_name = $request->input('first_name');
-        $customer->last_name = $request->input('last_name');
-        $customer->user_id = $user->id;
-        $customer->save();
+        $customer->first_name = $storeCustomerRequest->firstName;
+        $customer->last_name = $storeCustomerRequest->lastName;
+
+        $user->customer()->save($customer);
 
         return new JsonResponse(
             [
