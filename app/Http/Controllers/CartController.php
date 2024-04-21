@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartCheckoutRequest;
 use App\Models\Cart;
+use App\Requests\CheckoutRequest;
 use Core\Shared\Application\CommandBus;
 use Core\Shared\Application\IdProvider;
 use Core\Shared\Application\QueryBus;
@@ -89,12 +90,14 @@ class CartController extends Controller
 
         $orderId = $this->idProvider->getId();
 
+        $checkoutRequest = $request->mapTo(CheckoutRequest::class);
+
         $this->commandBus->dispatch(
             new CreateOrderFromCartCommand(
                 $orderId,
                 $cartId,
-                $request->shipment(),
-                $request->paymentMethod()
+                $checkoutRequest->shipment,
+                $checkoutRequest->paymentMethod,
             )
         );
 
